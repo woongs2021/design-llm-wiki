@@ -1,5 +1,7 @@
 # Design LLM Wiki
 
+사이트: [https://woongs2021.github.io/design-llm-wiki/](https://woongs2021.github.io/design-llm-wiki/)
+
 디자인 캡처를 Obsidian Markdown 볼트에 아카이빙하고, 작업창의 LLM이 분석과 wiki 지식층을 점진적으로 유지하며, 사람이 실행한 빌드로 생성된 JSON을 정적 웹사이트에서 검색·탐색·활용하는 사내 위키 프로젝트다. 로컬호스트 Intake는 임시 리뷰용 업로드 카드만 만들며 vault를 쓰지 않는다.
 
 현재 상태: **Phase 5 이후 IA 정리**. 웹 네비는 **Archive / Intake / History**. Intake는 드래그앤드롭 이미지 분석 데모를 브라우저 메모리에 만들고, Archive는 카드와 Pin을 보여 준다. 위키 본문은 Obsidian에 두고, 웹 History는 `wiki/log.md` 작업 이력만 보여 준다. 배포는 수동만: [docs/deploy.md](docs/deploy.md).
