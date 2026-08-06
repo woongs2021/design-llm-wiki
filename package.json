@@ -1,0 +1,32 @@
+{
+  "name": "design-llm-wiki",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsx scripts/build-index.ts",
+    "build:ui": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "check:contrast": "tsx scripts/check-contrast.ts",
+    "check:hex": "tsx scripts/check-hex.ts",
+    "check:a11y-css": "tsx scripts/check-a11y-css.ts",
+    "check:public-leak": "tsx scripts/check-public-leak.ts",
+    "validate": "tsx scripts/validate.ts",
+    "test:filter": "tsx scripts/test-filter.ts",
+    "test:phase4": "tsx scripts/test-phase4.ts",
+    "report": "tsx scripts/build-index.ts --target=internal",
+    "build:site": "tsx scripts/build-site.ts",
+    "audit": "tsx scripts/audit.ts",
+    "seed:dummy": "tsx scripts/seed-dummy-vault.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "@types/pngjs": "^6.0.5",
+    "omggif": "^1.0.10",
+    "pngjs": "^7.0.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}

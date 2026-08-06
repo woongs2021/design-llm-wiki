@@ -1,0 +1,50 @@
+/*
+ * Color hex exists only in this file.
+ * Components must reference var(--*) only.
+ *
+ * Theme: Cool Blue fixed (data-theme="cool").
+ * Mode: light | dark (data-mode).
+ *
+ * --on-* tokens are mode-independent ink for colored surfaces.
+ * Soft/tint surfaces must never inherit --fg for body text.
+ *
+ * Accessibility note: design-system muted/stroke alphas of 0.6/0.4 fail
+ * WCAG body 4.5:1 and UI 3:1 on light canvas. Raised to pass declared pairs.
+ */
+
+:root,
+html[data-theme="cool"] {
+  --primary: #4065f8;
+  --soft: #a1d0f6;
+  --mid: #16427c;
+  --deep: #001c33;
+  --tint: #caf7ff;
+  --accent: #9747ff;
+  --mute: #a8bfc1;
+  --warning: #ff105c;
+
+  /* Mode-independent ink on color surfaces */
+  --on-primary: #fcfcff;
+  --on-soft: #010102;
+  --on-tint: #010102;
+  --on-deep: #fcfcff;
+  --on-mid: #fcfcff;
+  --on-warning: #fcfcff;
+}
+
+html[data-mode="light"],
+:root {
+  --bg: #fcfcff;
+  --fg: #010102;
+  --fg-muted: rgba(1, 1, 2, 0.82);
+  --stroke: rgba(1, 1, 2, 0.72);
+  --focus-ring: #4065f8;
+}
+
+html[data-mode="dark"] {
+  --bg: #010102;
+  --fg: #fcfcff;
+  --fg-muted: rgba(252, 252, 255, 0.72);
+  --stroke: rgba(252, 252, 255, 0.72);
+  --focus-ring: #a1d0f6;
+}
