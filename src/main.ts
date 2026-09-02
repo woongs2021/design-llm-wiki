@@ -11,9 +11,11 @@ import {
   type ArchiveTab,
 } from "./views/archive.ts";
 import { bindCaptureDetail, renderCaptureDetail } from "./views/capture.ts";
+import { renderDesignSystem } from "./views/design-system.ts";
 import { renderHistory } from "./views/history.ts";
 import { bindIntake, renderIntake } from "./views/intake.ts";
 import { renderNotFound } from "./views/placeholders.ts";
+import { renderStats } from "./views/stats.ts";
 
 const MODE_KEY = "design-llm-wiki-mode";
 const DATA_URL = "./data/index.json";
@@ -53,18 +55,39 @@ function navLink(label: string, href: string, current: boolean): string {
   return `<a class="nav-link${current ? " nav-link--current" : ""}" href="${href}" ${current ? 'aria-current="page"' : ""}>${label}</a>`;
 }
 
+function modeToggleIcon(mode: Mode): string {
+  if (mode === "dark") {
+    return `
+      <svg class="mode-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.5" />
+        <path d="M12 2.5v3M12 18.5v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2.5 12h3M18.5 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" />
+      </svg>
+    `;
+  }
+  return `
+    <svg class="mode-icon mode-icon--moon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3A7 7 0 0 0 21 12.8Z" />
+    </svg>
+  `;
+}
+
 function shell(mainHtml: string): string {
   const mode = readStoredMode();
+  const nextModeLabel = mode === "dark" ? "라이트 모드로 전환" : "다크 모드로 전환";
   return `
     <header class="top-nav">
       <a class="wordmark" href="#/">Design LLM Wiki</a>
       <nav class="nav-menu" aria-label="Primary">
-        ${navLink("Archive", hrefFor({ name: "archive" }), route.name === "archive")}
+        ${navLink("Archive", hrefFor({ name: "archive" }), route.name === "archive" || route.name === "capture")}
         ${navLink("Intake", hrefFor({ name: "intake" }), route.name === "intake")}
+        ${navLink("Design System", hrefFor({ name: "designSystem" }), route.name === "designSystem")}
+        ${navLink("Stats", hrefFor({ name: "stats" }), route.name === "stats")}
         ${navLink("History", hrefFor({ name: "history" }), route.name === "history")}
       </nav>
       <div class="nav-actions">
-        <button type="button" class="button button--secondary" id="mode-toggle">${mode === "dark" ? "Dark" : "Light"}</button>
+        <button type="button" class="button button--secondary" id="mode-toggle" aria-label="${nextModeLabel}" title="${nextModeLabel}">
+          ${modeToggleIcon(mode)}
+        </button>
       </div>
     </header>
     <main class="shell" id="main">${mainHtml}</main>
@@ -117,6 +140,10 @@ function renderMain(): string {
         route.slug,
         pinnedSlugs,
       );
+    case "stats":
+      return renderStats(index);
+    case "designSystem":
+      return renderDesignSystem(index, filters, archiveTab, pinnedSlugs);
     case "intake":
       return renderIntake(intakeStatus);
     case "history":

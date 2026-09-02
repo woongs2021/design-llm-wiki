@@ -45,6 +45,11 @@ code {
   font-size: 0.9em;
 }
 
+:root {
+  --line-width: 0.5px;
+  --line-color: color-mix(in srgb, var(--stroke) 68%, transparent);
+}
+
 :focus {
   outline: none;
 }
@@ -65,7 +70,7 @@ code {
   height: 80px;
   padding: 0 32px;
   background: var(--bg);
-  border-bottom: 1px solid var(--stroke);
+  border-bottom: var(--line-width) solid var(--line-color);
 }
 
 .wordmark {
@@ -110,7 +115,7 @@ code {
   justify-content: center;
   min-height: 44px;
   padding: 14px 24px;
-  border: 1px solid transparent;
+  border: var(--line-width) solid transparent;
   border-radius: 12px;
   background: var(--primary);
   color: var(--on-primary);
@@ -130,15 +135,49 @@ code {
 .button--secondary {
   background: var(--bg);
   color: var(--fg);
-  border-color: var(--stroke);
+  border-color: var(--line-color);
 }
 
 /* Nav mode toggle — ~80% of default .button (same scale as wordmark). */
 #mode-toggle {
-  min-height: 35px;
-  padding: 11px 19px;
-  border-radius: 10px;
-  font-size: 9.6px;
+  width: 32px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0;
+  border-color: transparent;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tint) 15%, transparent);
+  color: var(--fg);
+  box-shadow: inset 0 0 0 var(--line-width) color-mix(in srgb, var(--stroke) 20%, transparent);
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+#mode-toggle:hover {
+  background: var(--soft);
+  color: var(--on-soft);
+  box-shadow: inset 0 0 0 var(--line-width) color-mix(in srgb, var(--mid) 34%, transparent);
+}
+
+#mode-toggle:active {
+  transform: scale(0.96);
+}
+
+.mode-icon {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mode-icon circle {
+  fill: currentColor;
+  stroke: none;
 }
 
 .chip {
@@ -148,7 +187,7 @@ code {
   gap: 8px;
   min-height: 28px;
   padding: 6px 14px;
-  border: 1px solid var(--stroke);
+  border: var(--line-width) solid var(--line-color);
   border-radius: 999px;
   background: var(--bg);
   color: var(--fg);
@@ -183,7 +222,7 @@ code {
 .state-panel--canvas {
   background: var(--bg);
   color: var(--fg);
-  border: 1px solid var(--stroke);
+  border: var(--line-width) solid var(--line-color);
 }
 
 .state-panel--soft {
@@ -207,6 +246,162 @@ code {
 .state-panel__text {
   margin: 0 0 24px;
   font-size: 20px;
+}
+
+.coming-soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: min(60vh, 520px);
+  padding: 48px 32px;
+  border-radius: 28px;
+  border: var(--line-width) solid var(--line-color);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.coming-soon__inner {
+  text-align: center;
+  max-width: 560px;
+}
+
+.coming-soon__badge {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  background: var(--soft);
+  color: var(--on-soft);
+}
+
+.coming-soon__title {
+  margin: 0 0 12px;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.coming-soon__text {
+  margin: 0 0 16px;
+  font-size: 22px;
+}
+
+.coming-soon__sub {
+  margin: 0;
+  font-size: 16px;
+  color: var(--muted-fg, var(--fg));
+  opacity: 0.75;
+}
+
+.ds-builder {
+  display: grid;
+  gap: 24px;
+}
+
+.ds-builder__hero {
+  padding: 48px 32px;
+  border-radius: 28px;
+  border: var(--line-width) solid var(--line-color);
+  background: var(--bg);
+  color: var(--fg);
+  text-align: center;
+}
+
+.ds-builder__panel,
+.ds-builder__card {
+  border: var(--line-width) solid var(--line-color);
+  border-radius: 24px;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.ds-builder__panel {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.ds-builder__panel h2,
+.ds-builder__card h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.ds-builder__panel p,
+.ds-builder__card p {
+  margin: 0;
+  color: var(--muted-fg, var(--fg));
+  opacity: 0.75;
+}
+
+.ds-builder__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ds-builder__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.ds-builder__card {
+  padding: 20px;
+}
+
+.ds-builder__metric-list {
+  display: grid;
+  gap: 8px;
+}
+
+.ds-builder__evidence-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-builder__evidence-list li {
+  display: grid;
+  gap: 4px;
+  padding: 10px 0;
+  border-bottom: var(--line-width) solid var(--line-color);
+}
+
+.ds-builder__evidence-list li:last-child {
+  border-bottom: 0;
+}
+
+.ds-builder__evidence-list strong {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--fg);
+}
+
+.ds-builder__evidence-list span {
+  color: var(--fg-muted);
+  font-size: 14px;
+}
+
+.ds-builder__panel--command {
+  background: var(--tint);
+  color: var(--on-tint);
+}
+
+.ds-builder__command {
+  overflow-x: auto;
+  margin: 0;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgb(0 0 0 / 0.08);
+  white-space: pre-wrap;
 }
 
 .gallery__header {
@@ -260,7 +455,7 @@ code {
   place-items: center;
   width: 38px;
   height: 38px;
-  border: 1px solid var(--stroke);
+  border: var(--line-width) solid var(--line-color);
   border-radius: 999px;
   background: var(--bg);
   color: var(--fg);
@@ -273,10 +468,37 @@ code {
   width: 100%;
 }
 
+.archive-filter-wrap {
+  margin-bottom: 32px;
+}
+
 .gallery__filters {
   display: flex;
   flex-direction: column;
+  gap: 16px;
+}
+
+.archive-filter-panel {
+  border: var(--line-width) solid var(--line-color);
+  border-radius: 20px;
+  background: var(--bg);
+}
+
+.archive-filter-panel__summary {
+  padding: 16px 18px;
+  color: var(--fg);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.archive-filter-panel__body {
+  display: flex;
+  flex-direction: column;
   gap: 32px;
+  padding: 0 18px 18px;
 }
 
 .search-field {
@@ -297,7 +519,7 @@ code {
   width: 100%;
   min-height: 48px;
   padding: 14px 18px;
-  border: 1px solid var(--stroke);
+  border: var(--line-width) solid var(--line-color);
   border-radius: 12px;
   background: var(--bg);
   color: var(--fg);
@@ -334,7 +556,7 @@ code {
   width: 100%;
   margin: 0 0 24px;
   overflow: hidden;
-  border: 1px solid var(--stroke);
+  border: var(--line-width) solid var(--line-color);
   border-radius: 28px;
   background: var(--bg);
   color: var(--fg);
@@ -422,8 +644,8 @@ code {
   padding: 40px;
   border: 1px dashed var(--stroke);
   border-radius: 28px;
-  background: var(--tint);
-  color: var(--on-tint);
+  background: color-mix(in srgb, var(--tint) 20%, transparent);
+  color: var(--fg);
 }
 
 .intake-dropzone--active {
@@ -485,7 +707,7 @@ code {
   gap: 16px;
   align-items: baseline;
   padding: 20px 0;
-  border-bottom: 1px solid var(--stroke);
+  border-bottom: var(--line-width) solid var(--line-color);
 }
 
 .history-item__date {
@@ -645,7 +867,7 @@ html[data-mode="dark"] .history-item__op {
 .detail__media-wrap {
   margin-bottom: 48px;
   overflow: hidden;
-  border: 1px solid var(--stroke);
+  border: var(--line-width) solid var(--line-color);
   border-radius: 28px;
   background: var(--soft);
 }
@@ -664,7 +886,7 @@ html[data-mode="dark"] .history-item__op {
 
 .analysis-score {
   padding: 32px;
-  border: 1px solid var(--stroke);
+  border: var(--line-width) solid var(--line-color);
   border-radius: 28px;
   background: var(--bg);
 }
@@ -761,7 +983,7 @@ html[data-mode="dark"] .spider-callout {
   display: grid;
   gap: 4px;
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--stroke);
+  border-bottom: var(--line-width) solid var(--line-color);
 }
 
 .score-list dt {
@@ -833,7 +1055,7 @@ html[data-mode="dark"] .spider-callout {
   flex-direction: column;
   gap: 8px;
   padding: 24px;
-  border: 1px solid var(--stroke);
+  border: var(--line-width) solid var(--line-color);
   border-radius: 28px;
   color: inherit;
   text-decoration: none;
@@ -868,7 +1090,7 @@ html[data-mode="dark"] .spider-callout {
 
 .stat-tile {
   padding: 32px;
-  border: 1px solid var(--stroke);
+  border: var(--line-width) solid var(--line-color);
   border-radius: 28px;
   background: var(--bg);
 }
@@ -983,6 +1205,8 @@ html[data-mode="dark"] .spider-callout {
 
   /* Keep touch target; visual padding/type stay at 80% scale. */
   #mode-toggle {
+    width: 48px;
+    height: 48px;
     min-height: 48px;
   }
 }

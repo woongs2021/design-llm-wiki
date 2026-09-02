@@ -1,33 +1,26 @@
 export type Route =
   | { name: "archive" }
   | { name: "capture"; slug: string }
+  | { name: "stats" }
+  | { name: "designSystem" }
   | { name: "intake" }
   | { name: "history" }
   | { name: "notfound"; path: string };
+
+const SLUG = "[a-z0-9]+(?:-[a-z0-9]+)*";
 
 export function parseHash(hash = window.location.hash): Route {
   const raw = hash.replace(/^#/, "");
   const path = raw.startsWith("/") ? raw : `/${raw}`;
   const cleaned = path === "/" || path === "" ? "/" : path.replace(/\/+$/, "");
 
-  // Legacy Gallery / Collections / Wiki / Stats → Archive
-  if (
-    cleaned === "/" ||
-    cleaned === "/gallery" ||
-    cleaned === "/collections" ||
-    cleaned === "/wiki" ||
-    cleaned === "/stats" ||
-    cleaned.startsWith("/collections/") ||
-    cleaned.startsWith("/wiki/")
-  ) {
-    return { name: "archive" };
-  }
-
+  if (cleaned === "/" || cleaned === "/gallery") return { name: "archive" };
+  if (cleaned === "/stats") return { name: "stats" };
+  if (cleaned === "/design-system") return { name: "designSystem" };
   if (cleaned === "/intake") return { name: "intake" };
   if (cleaned === "/history") return { name: "history" };
-  if (cleaned === "/export") return { name: "archive" };
 
-  const capture = cleaned.match(/^\/capture\/([a-z0-9]+(?:-[a-z0-9]+)*)$/);
+  const capture = cleaned.match(new RegExp(`^/capture/(${SLUG})$`));
   if (capture) return { name: "capture", slug: capture[1]! };
 
   return { name: "notfound", path: cleaned };
@@ -39,6 +32,10 @@ export function hrefFor(route: Route): string {
       return "#/";
     case "capture":
       return `#/capture/${route.slug}`;
+    case "stats":
+      return "#/stats";
+    case "designSystem":
+      return "#/design-system";
     case "intake":
       return "#/intake";
     case "history":

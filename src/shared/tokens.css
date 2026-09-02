@@ -15,10 +15,10 @@
 :root,
 html[data-theme="cool"] {
   --primary: #4065f8;
-  --soft: #a1d0f6;
+  --soft: #d8f1ff;
   --mid: #16427c;
   --deep: #001c33;
-  --tint: #caf7ff;
+  --tint: #e8eef8;
   --accent: #9747ff;
   --mute: #a8bfc1;
   --warning: #ff105c;

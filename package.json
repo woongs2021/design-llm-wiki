@@ -18,7 +18,9 @@
     "report": "tsx scripts/build-index.ts --target=internal",
     "build:site": "tsx scripts/build-site.ts",
     "audit": "tsx scripts/audit.ts",
-    "seed:dummy": "tsx scripts/seed-dummy-vault.ts"
+    "seed:dummy": "tsx scripts/seed-dummy-vault.ts",
+    "ingest": "tsx scripts/ingest.ts",
+    "design-system": "tsx scripts/design-system.ts"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",

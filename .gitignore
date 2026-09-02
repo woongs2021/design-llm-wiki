@@ -4,4 +4,6 @@ dist-internal/
 dist-public/
 reports/
 *.local
+.env
+.env.*
 .DS_Store
